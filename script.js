@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Helper function to create a promise that resolves after a random time between 1 and 3 seconds
   const createRandomPromise = () => {
-    const randomDelay = Math.floor(Math.random() * 3000) + 1000; // Random between 1000ms and 3000ms
+    const randomDelay = Math.floor(Math.random() * 2000) + 1000; // Random between 1000ms and 3000ms
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(randomDelay / 1000); // Resolve with seconds
