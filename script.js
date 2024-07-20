@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Promise.all(promises)
     .then(results => {
       // Remove loading text
-      loadingRow.innerHTML = '';
+      loadingRow.cells[0].textContent = '';
 
       // Update each promise row with resolved time
       results.forEach((time, index) => {
