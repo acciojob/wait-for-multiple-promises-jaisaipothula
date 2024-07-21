@@ -6,38 +6,30 @@
   <title>Promise.all Example</title>
   <style>
     table {
-      border-collapse: collapse;
       width: 50%;
-      margin-top: 20px;
+      margin: auto;
+      border-collapse: collapse;
     }
     th, td {
+      padding: 10px;
+      text-align: center;
       border: 1px solid black;
-      padding: 8px;
-      text-align: left;
     }
   </style>
 </head>
 <body>
-  <table id="resultTable">
-    <tr>
-      <th colspan="2">Loading...</th>
-    </tr>
-    <tr>
-      <td>Promise 1</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <td>Promise 2</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <td>Promise 3</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <td>Total</td>
-      <td>...</td>
-    </tr>
+  <table id="result-table">
+    <thead>
+      <tr>
+        <th>Promise</th>
+        <th>Time Taken (seconds)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="2" id="loading-row">Loading...</td>
+      </tr>
+    </tbody>
   </table>
 
   <script src="script.js"></script>

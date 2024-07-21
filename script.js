@@ -1,46 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const table = document.getElementById('resultTable');
-  const loadingRow = table.rows[0]; // First row for loading text
-  const promiseRows = [
-    table.rows[1], // Promise 1 row
-    table.rows[2], // Promise 2 row
-    table.rows[3]  // Promise 3 row
-  ];
-  const totalRow = table.rows[4]; // Total row
+  const resultTable = document.getElementById('result-table');
+  const loadingRow = document.getElementById('loading-row');
 
-  // Helper function to create a promise that resolves after a random time between 1 and 3 seconds
-  const createRandomPromise = () => {
-    const randomDelay = Math.floor(Math.random() * 2000) + 1000; // Random between 1000ms and 3000ms
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(randomDelay / 1000); // Resolve with seconds
-      }, randomDelay);
-    });
-  };
+  // Function to generate a random delay between 1 and 3 seconds
+  function getRandomDelay() {
+    return Math.floor(Math.random() * 3000) + 1000; // Random number between 1000 and 3000 milliseconds
+  }
 
-  // Array of promises
+  // Create an array of 3 promises with random delays
   const promises = [
-    createRandomPromise(),
-    createRandomPromise(),
-    createRandomPromise()
+    new Promise(resolve => {
+      setTimeout(() => resolve(getRandomDelay()), getRandomDelay());
+    }),
+    new Promise(resolve => {
+      setTimeout(() => resolve(getRandomDelay()), getRandomDelay());
+    }),
+    new Promise(resolve => {
+      setTimeout(() => resolve(getRandomDelay()), getRandomDelay());
+    })
   ];
 
-  // Update table after all promises resolve
+  // Use Promise.all to wait for all promises to resolve
   Promise.all(promises)
-    .then(results => {
-      // Remove loading text
-      loadingRow.cells[0].textContent = '';
+    .then(times => {
+      // Remove loading row
+      loadingRow.parentNode.removeChild(loadingRow);
 
-      // Update each promise row with resolved time
-      results.forEach((time, index) => {
-        promiseRows[index].cells[1].textContent = time.toFixed(3); // Display time with 3 decimal places
+      // Populate the table with the resolved times
+      times.forEach((time, index) => {
+        const row = resultTable.insertRow(-1); // Append row to end of table
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        cell1.textContent = `Promise ${index + 1}`;
+        cell2.textContent = (time / 1000).toFixed(3); // Convert milliseconds to seconds with 3 decimal places
       });
 
-      // Calculate total time
-      const totalTime = results.reduce((acc, curr) => acc + curr, 0);
-      totalRow.cells[1].textContent = totalTime.toFixed(3); // Display total time with 3 decimal places
+      // Calculate total time and add it as the last row
+      const totalRow = resultTable.insertRow(-1);
+      const totalCell1 = totalRow.insertCell(0);
+      const totalCell2 = totalRow.insertCell(1);
+      totalCell1.textContent = 'Total';
+      const totalTime = times.reduce((acc, curr) => acc + curr, 0) / 1000; // Total time in seconds
+      totalCell2.textContent = totalTime.toFixed(3); // Display total time with 3 decimal places
     })
     .catch(error => {
-      console.error('Error occurred:', error);
+      console.error('Error in promises:', error);
+      // Handle errors if needed
     });
 });
