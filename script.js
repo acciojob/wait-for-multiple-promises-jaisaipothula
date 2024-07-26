@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector('tbody');
+    
+    // Create a loading row
+    const loadingRow = document.createElement('tr');
+    loadingRow.id = 'loading-row';
+    const loadingCell = document.createElement('td');
+    loadingCell.colSpan = 2;
+    loadingCell.textContent = 'Loading...';
+    loadingRow.appendChild(loadingCell);
+    tableBody.appendChild(loadingRow);
 
     // Function to create a promise that resolves after a random time between 1 and 3 seconds
     function createRandomPromise(promiseName) {
