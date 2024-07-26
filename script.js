@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector('tbody');
-    
+
     // Function to create a promise that resolves after a random time between 1 and 3 seconds
     function createRandomPromise(promiseName) {
         const time = Math.floor(Math.random() * 3) + 1; // Random time between 1 and 3 seconds
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, time * 1000);
         });
     }
-    
+
     // Create 3 promises
     const promise1 = createRandomPromise('Promise 1');
     const promise2 = createRandomPromise('Promise 2');
@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(results => {
             // Remove the loading row
             const loadingRow = document.getElementById('loading-row');
-            tableBody.removeChild(loadingRow);
+            if (loadingRow) {
+                tableBody.removeChild(loadingRow);
+            }
 
             // Create rows for each promise
             results.forEach((result, index) => {
