@@ -1,37 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Promise.all Example</title>
-  <style>
-    table {
-      width: 50%;
-      margin: auto;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-      border: 1px solid black;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Table</title>
 </head>
 <body>
-  <table id="result-table">
-    <thead>
-      <tr>
-        <th>Promise</th>
-        <th>Time Taken (seconds)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td colspan="2" id="loading-row">Loading...</td>
-      </tr>
-    </tbody>
-  </table>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Promise</th>
+                <th>Time (seconds)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="loading-row">
+                <td colspan="2">Loading...</td>
+            </tr>
+        </tbody>
+    </table>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
