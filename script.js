@@ -1,46 +1,44 @@
-// Function to create a promise that resolves after a random time between 1 and 3 seconds
 function createRandomPromise(promiseName) {
-    const time = Math.random() * 2 + 1; // Random time between 1 and 3 seconds
     return new Promise((resolve) => {
+        const time = Math.random() * 2 + 1; // Random time between 1 and 3 seconds
         setTimeout(() => {
             resolve({ name: promiseName, time: time.toFixed(3) });
         }, time * 1000);
     });
 }
 
-async function loadPromises() {
-    // Get the table body element
-    const tableBody = document.getElementById('promiseTableBody');
-
-    // Show loading text
-    tableBody.innerHTML = '<tr><td colspan="2">Loading...</td></tr>';
-
-    // Create three promises
-    const promise1 = createRandomPromise('Promise 1');
-    const promise2 = createRandomPromise('Promise 2');
-    const promise3 = createRandomPromise('Promise 3');
+async function main() {
+    const loadingRow = document.querySelector('#loading');
+    
+    // Create the three promises
+    const promises = [
+        createRandomPromise('Promise 1'),
+        createRandomPromise('Promise 2'),
+        createRandomPromise('Promise 3')
+    ];
 
     // Wait for all promises to resolve
-    const results = await Promise.all([promise1, promise2, promise3]);
+    const results = await Promise.all(promises);
+    
+    // Remove the loading text
+    loadingRow.remove();
 
-    // Clear loading text
-    tableBody.innerHTML = '';
+    // Calculate total time
+    const totalTime = results.reduce((sum, result) => sum + parseFloat(result.time), 0).toFixed(3);
 
     // Populate the table with results
+    const tbody = document.getElementById('output');
     results.forEach(result => {
         const row = document.createElement('tr');
         row.innerHTML = `<td>${result.name}</td><td>${result.time}</td>`;
-        tableBody.appendChild(row);
+        tbody.appendChild(row);
     });
 
-    // Calculate total time taken
-    const totalTime = results.reduce((acc, curr) => acc + parseFloat(curr.time), 0).toFixed(3);
-
-    // Add total row
+    // Add the total row
     const totalRow = document.createElement('tr');
     totalRow.innerHTML = `<td>Total</td><td>${totalTime}</td>`;
-    tableBody.appendChild(totalRow);
+    tbody.appendChild(totalRow);
 }
 
-// Load promises when the script runs
-loadPromises();
+// Start the main function
+main();
