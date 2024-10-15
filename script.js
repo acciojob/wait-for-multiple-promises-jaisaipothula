@@ -8,7 +8,7 @@ function createRandomPromise(promiseName) {
 }
 
 async function main() {
-    const loadingRow = document.querySelector('#results tr');
+    const loadingRow = document.querySelector('#loading');
     
     // Create the three promises
     const promises = [
@@ -27,7 +27,7 @@ async function main() {
     const totalTime = results.reduce((sum, result) => sum + parseFloat(result.time), 0).toFixed(3);
 
     // Populate the table with results
-    const tbody = document.getElementById('results');
+    const tbody = document.getElementById('output');
     results.forEach(result => {
         const row = document.createElement('tr');
         row.innerHTML = `<td>${result.name}</td><td>${result.time}</td>`;
